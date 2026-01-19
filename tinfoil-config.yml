@@ -1,0 +1,36 @@
+shim-version: v0.3.5@sha256:f44c65a1f7db476be20c3431bb6facea8c2966606a07fbb5724a619f82bfa558
+cvm-version: 0.5.16
+cpus: 16
+memory: 65536
+gpus: full
+
+models:
+  - name: "gpt-oss-safeguard-120b"
+    repo: "openai/gpt-oss-safeguard-120b@3c7391182603991a904031244e7822488c67796d"
+    mpk: "7a279c6d7739f7ded0cf859f1bf83893543a94a455e9b27e5cbcb1abe5d893a6_65276887040_4f87cf5d-d297-5a82-83e6-4ea897937d7a"
+
+containers:
+  - name: "gpt-oss-safeguard-120b"
+    image: ""
+    args: [
+      "--runtime", "nvidia",
+      "--gpus", "all",
+      "--ipc", "host",
+      "vllm/vllm-openai:v0.13.0@sha256:d623253f2ba246378421c9642e20885e65257f38418ff26d48c81aea1702521b",
+      "--model", "/tinfoil/mpk/mpk-7a279c6d7739f7ded0cf859f1bf83893543a94a455e9b27e5cbcb1abe5d893a6",
+      "--served-model-name", "gpt-oss-safeguard-120b",
+      "--enable-auto-tool-choice",
+      "--tool-call-parser", "openai",
+      "--gpu-memory-utilization", "0.95",
+      "--port", "8001"
+    ]
+
+shim:
+  listen-port: 443
+  upstream-port: 8001
+  authenticated: true 
+  paths:
+    - /v1/chat/completions
+    - /metrics
+    - /v1/responses
+    - /health
