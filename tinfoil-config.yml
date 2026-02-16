@@ -1,5 +1,5 @@
-shim-version: v0.3.5@sha256:f44c65a1f7db476be20c3431bb6facea8c2966606a07fbb5724a619f82bfa558
-cvm-version: 0.5.16
+shim-version: v0.3.16@sha256:20220be4487f241e7e2a9af6dd576d20ba35d71307bd777c8dba9ba5da03fb38
+cvm-version: 0.6.7
 cpus: 16
 memory: 65536
 gpus: full
@@ -11,12 +11,11 @@ models:
 
 containers:
   - name: "gpt-oss-safeguard-120b"
-    image: ""
-    args: [
-      "--runtime", "nvidia",
-      "--gpus", "all",
-      "--ipc", "host",
-      "vllm/vllm-openai:v0.13.0@sha256:d623253f2ba246378421c9642e20885e65257f38418ff26d48c81aea1702521b",
+    image: "vllm/vllm-openai:v0.13.0@sha256:d623253f2ba246378421c9642e20885e65257f38418ff26d48c81aea1702521b",
+    runtime: nvidia
+    gpus: all
+    ipc: host
+    command: [
       "--model", "/tinfoil/mpk/mpk-7a279c6d7739f7ded0cf859f1bf83893543a94a455e9b27e5cbcb1abe5d893a6",
       "--served-model-name", "gpt-oss-safeguard-120b",
       "--enable-auto-tool-choice",
