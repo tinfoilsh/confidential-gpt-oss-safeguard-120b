@@ -11,7 +11,7 @@ models:
 
 containers:
   - name: "gpt-oss-safeguard-120b"
-    image: "vllm/vllm-openai:v0.13.0@sha256:d623253f2ba246378421c9642e20885e65257f38418ff26d48c81aea1702521b",
+    image: "vllm/vllm-openai:v0.13.0@sha256:d623253f2ba246378421c9642e20885e65257f38418ff26d48c81aea1702521b"
     runtime: nvidia
     gpus: all
     ipc: host
