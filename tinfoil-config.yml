@@ -1,8 +1,7 @@
-shim-version: v0.3.16@sha256:20220be4487f241e7e2a9af6dd576d20ba35d71307bd777c8dba9ba5da03fb38
-cvm-version: 0.6.7
+cvm-version: 0.7.1
 cpus: 16
 memory: 65536
-gpus: full
+gpus: 1
 
 models:
   - name: "gpt-oss-safeguard-120b"
@@ -11,7 +10,7 @@ models:
 
 containers:
   - name: "gpt-oss-safeguard-120b"
-    image: "vllm/vllm-openai:v0.13.0@sha256:d623253f2ba246378421c9642e20885e65257f38418ff26d48c81aea1702521b"
+    image: "vllm/vllm-openai:v0.17.1-cu130@sha256:bbeaaf81ba5704c30f6b87a5df5b10b930d97e916fc98c825d3ad30806e9638b"
     runtime: nvidia
     gpus: all
     ipc: host
@@ -25,9 +24,11 @@ containers:
     ]
 
 shim:
-  listen-port: 443
   upstream-port: 8001
-  authenticated: true 
+  authenticated: true
+  authenticated-endpoints:
+    - /v1/chat/completions
+    - /v1/responses
   paths:
     - /v1/chat/completions
     - /metrics
