@@ -1,6 +1,6 @@
-cvm-version: 0.7.1
-cpus: 16
+cvm-version: 0.7.3
 memory: 65536
+cpus: 16
 gpus: 1
 
 models:
